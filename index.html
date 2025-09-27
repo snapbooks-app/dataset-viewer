@@ -2,15 +2,80 @@
 <html data-theme="cupcake" class="h-full">
 <head>
   <meta charset="UTF-8">
-  <title>Chatset Viewer</title>
+  <title>Dataset Viewer</title>
   <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
   <link href="https://cdn.jsdelivr.net/npm/daisyui@3.0.0/dist/full.css" rel="stylesheet" type="text/css" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* System message collapsible styling */
+    .system-message-content.collapsed {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      -webkit-line-clamp: var(--lines-to-show);
+      line-clamp: var(--lines-to-show);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .system-message-content.expanded {
+      display: block;
+      transition: all 0.3s ease-in-out;
+    }
+
+    /* Responsive line limits */
+    :root {
+      --lines-to-show: 3; /* Default for mobile */
+    }
+
+    /* Tablet and larger screens */
+    @media (min-width: 768px) {
+      :root {
+        --lines-to-show: 5;
+      }
+    }
+
+    /* Desktop and larger screens */
+    @media (min-width: 1024px) {
+      :root {
+        --lines-to-show: 8;
+      }
+    }
+
+    /* Smooth transitions for toggle button icon */
+    .system-message-toggle svg {
+      transition: transform 0.2s ease-in-out;
+    }
+
+    /* Hover effect for toggle button */
+    .system-message-toggle:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+  </style>
   </head>
   <body class="bg-base-200 flex flex-col h-full">
   <!-- Main content area with bottom padding -->
   <div class="flex-1 overflow-y-auto" style="padding-bottom: 4rem;">
     <div class="p-4 pb-16"> <!-- Added pb-16 for bottom padding -->
+      <!-- Search Section -->
+      <div class="search-container bg-base-100 rounded-lg shadow-lg p-4 mb-4">
+        <div class="flex items-center gap-3">
+          <div class="flex-1">
+            <input 
+              type="text" 
+              id="search-input" 
+              placeholder="Search messages..." 
+              class="input input-bordered w-full"
+            />
+          </div>
+          <button id="clear-search" class="btn btn-ghost btn-sm" style="display: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div id="search-status" class="text-sm text-base-content/60 mt-2" style="display: none;"></div>
+      </div>
+      
       <div class="chat-container bg-base-100 rounded-lg shadow-lg p-6 mb-16">
         <!-- Chat messages will be inserted here -->
       </div>

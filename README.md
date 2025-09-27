@@ -1,6 +1,6 @@
-# Chatset Viewer
+# Dataset Viewer
 
-Chatset Viewer is an Electron-based application for viewing chat-based LLM datasets in JSONL format.
+Dataset Viewer is an Electron-based application for viewing chat-based LLM datasets in JSONL format.
 
 ## Features
 
@@ -13,12 +13,12 @@ Chatset Viewer is an Electron-based application for viewing chat-based LLM datas
 
 1. Clone the repository:
    ```
-   git clone https://github.com/snapbooks-app/chatset-viewer.git
+   git clone https://github.com/snapbooks-app/dataset-viewer.git
    ```
 
 2. Navigate to the project directory:
    ```
-   cd chatset-viewer
+   cd dataset-viewer
    ```
 
 3. Install dependencies:
@@ -30,7 +30,10 @@ Chatset Viewer is an Electron-based application for viewing chat-based LLM datas
 
 To start the application in development mode:
 
+```bash
+npm start
 ```
+
 ## How to Use
 
 1. Click the "Load" button (folder icon) to select a JSONL file containing chat data.
@@ -53,7 +56,68 @@ Main files:
 
 ## Building and Releasing
 
-The project uses GitHub Actions for automated builds and releases. When a new tag is pushed, it triggers a workflow that builds the application for Windows, macOS, and Linux.
+### Local Development Builds
+
+To build the application locally for all platforms:
+
+```bash
+npm run build
+```
+
+To build for specific platforms:
+
+```bash
+npm run build:mac     # macOS
+npm run build:win     # Windows
+npm run build:linux   # Linux
+```
+
+### Automated Releases
+
+The project uses GitHub Actions for automated builds and releases across Windows, macOS, and Linux platforms.
+
+#### Creating a Release
+
+1. **Patch Release** (0.0.5 → 0.0.6):
+   ```bash
+   npm run release
+   ```
+
+2. **Minor Release** (0.0.5 → 0.1.0):
+   ```bash
+   npm run release:minor
+   ```
+
+3. **Major Release** (0.0.5 → 1.0.0):
+   ```bash
+   npm run release:major
+   ```
+
+These commands will:
+- Increment the version number in `package.json`
+- Create a git tag
+- Push changes and tags to GitHub
+- Trigger the automated build workflow
+
+#### Build Artifacts
+
+The GitHub Actions workflow will create the following build artifacts:
+
+**Windows:**
+- `.exe` installer (NSIS)
+- `.msi` installer
+
+**macOS:**
+- `.dmg` installer
+
+**Linux:**
+- `.deb` package (Debian/Ubuntu)
+- `.rpm` package (Red Hat/Fedora)
+- `.AppImage` portable executable
+
+#### Manual Workflow Trigger
+
+You can also manually trigger the build workflow from the GitHub Actions tab without creating a release.
 
 ## License
 
